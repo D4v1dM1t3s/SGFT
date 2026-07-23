@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37516.0 d17.14
+VisualStudioVersion = 17.14.37516.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGIT.WebAPI", "SGIT.WebAPI\SGIT.WebAPI.csproj", "{1121BDE8-1B87-42D9-818C-A32CE9E35872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGIT.Business", "SGIT.Business\SGIT.Business.csproj", "{6FC009DD-76FF-4BAA-B6E9-B2B813E5891D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGIT.Model", "SGIT.Model\SGIT.Model.csproj", "{12D271D8-ED53-4B79-BADA-81C8E9DDC030}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGIT.Data", "SGIT.Data\SGIT.Data.csproj", "{2FA21943-78FE-4FDA-B662-24BBDF8D4CAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{1121BDE8-1B87-42D9-818C-A32CE9E35872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1121BDE8-1B87-42D9-818C-A32CE9E35872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1121BDE8-1B87-42D9-818C-A32CE9E35872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FC009DD-76FF-4BAA-B6E9-B2B813E5891D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FC009DD-76FF-4BAA-B6E9-B2B813E5891D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FC009DD-76FF-4BAA-B6E9-B2B813E5891D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FC009DD-76FF-4BAA-B6E9-B2B813E5891D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12D271D8-ED53-4B79-BADA-81C8E9DDC030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12D271D8-ED53-4B79-BADA-81C8E9DDC030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12D271D8-ED53-4B79-BADA-81C8E9DDC030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12D271D8-ED53-4B79-BADA-81C8E9DDC030}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FA21943-78FE-4FDA-B662-24BBDF8D4CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FA21943-78FE-4FDA-B662-24BBDF8D4CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FA21943-78FE-4FDA-B662-24BBDF8D4CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FA21943-78FE-4FDA-B662-24BBDF8D4CAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
