@@ -1,10 +1,12 @@
-﻿using SGUS.Model.Producto;
+﻿using SGIT.Model.Producto;
 
-namespace SGUS.Business.Producto
+namespace SGIT.Business.Producto
 {
     public class ProductoRepositorio
     {
-        public static List<ProductoModelo> ObtenerProducto(int idProducto)
+        public static List<ProductoModelo> products = new List<ProductoModelo>();
+
+        public static List<ProductoModelo> ObtenerProductos(int idProducto)
         {
             var query = from x in poblarProductos()
                         select x;
@@ -13,16 +15,46 @@ namespace SGUS.Business.Producto
                 query = from x in query
                         where x.IdProducto == idProducto
                         select x;
-
-                return query.ToList();
             }
             return query.OrderBy(x => x.IdProducto).ToList();
         }
 
+        public static ProductoModelo BuscarProductoPorDescripcion(string descripcion)
+        {
+            ProductoModelo producto = new ProductoModelo();
+            if (!string.IsNullOrEmpty(descripcion))
+            {
+                producto = (from x in poblarProductos()
+                            where x.Nombre == descripcion
+                            select x).First();
+            }
+            return producto;
+        }
+
+        public static int CrearProducto(ProductoRequest request)
+        {
+            var response = 0;
+            if (request != null)
+            {
+                var producto = ProductoRepositorio.BuscarProductoPorDescripcion(request.Nombre);
+
+                if (producto == null)
+                {
+                    producto = new ProductoModelo();
+                    producto.IdProducto = 6;//Secuencial;
+                    producto.Importancia = request.Importancia == 1 ? Importancia.Alta : Importancia.Baja;
+                    producto.FechaVencimiento = request.FechaVencimiento;
+                    producto.Activo = true;
+                    producto.Nombre = request.Nombre;
+                    products.Add(producto);
+                }
+                return response;
+            }
+            return response;
+        }
+
         private static List<ProductoModelo> poblarProductos()
         {
-            List<ProductoModelo> products = new List<ProductoModelo>();
-
             var producto = new ProductoModelo();
             producto.IdProducto = 1;
             producto.Importancia = Importancia.Alta;
@@ -48,7 +80,7 @@ namespace SGUS.Business.Producto
             products.Add(producto);
 
             producto = new ProductoModelo();
-            producto.IdProducto = 1;
+            producto.IdProducto = 4;
             producto.Importancia = Importancia.Alta;
             producto.FechaVencimiento = new DateTime(2026, 07, 30);
             producto.Activo = true;
@@ -56,7 +88,7 @@ namespace SGUS.Business.Producto
             products.Add(producto);
 
             producto = new ProductoModelo();
-            producto.IdProducto = 1;
+            producto.IdProducto = 5;
             producto.Importancia = Importancia.Baja;
             producto.FechaVencimiento = new DateTime(2026, 07, 25);
             producto.Activo = true;
