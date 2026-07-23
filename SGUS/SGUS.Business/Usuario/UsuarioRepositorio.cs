@@ -1,6 +1,6 @@
-﻿using SGUS.Model.Producto;
+﻿using SGUS.Business.Producto;
+using SGUS.Model.Producto;
 using SGUS.Model.Usuario;
-using System.Collections.Generic;
 
 namespace SGUS.Business.Usuario
 {

@@ -1,12 +1,6 @@
 ﻿using SGUS.Model.Producto;
-using SGUS.Model.Usuario;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SGUS.Business.Usuario
+namespace SGUS.Business.Producto
 {
     public class ProductoRepositorio
     {
