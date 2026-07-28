@@ -46,14 +46,17 @@ Endpoint para asignar items de trabajo usuarios con menor carga y posteior obten
 API Items de Trabajo.
 
 Endpoint Obtener el listado de items con sus Items de trabajo ordenados por relevancia.
+
 <img width="610" height="732" alt="image" src="https://github.com/user-attachments/assets/df5339b7-e9c0-4c1a-ba8f-17ca3f1b192c" />
 
 <img width="641" height="737" alt="image" src="https://github.com/user-attachments/assets/5a122983-8668-4e03-b0a1-688e0453b488" />
 
 Endpoint Obtener un items filtrado por ID del Item.
+
 <img width="530" height="483" alt="image" src="https://github.com/user-attachments/assets/786cc38c-8c01-4910-9a8c-7fc22a4423e6" />
 
 Endpoint para crear items de trabajo
+
 <img width="705" height="722" alt="image" src="https://github.com/user-attachments/assets/6c267190-0b31-4fde-8934-21c65c86d9de" />
 
 ##  Estructura del Código
@@ -92,7 +95,8 @@ Endpoint para crear items de trabajo
 
 ## Base de Datos
 Diagrama entidad-relación
-Se utilizo Microsoft SQL Server 2022 (RTM) - 16.0.1000.6 (X64) Express Edition (64-bit) on Windows 10 Pro 10.0 <X64> (Build 19045: ) 
+Se utilizo Microsoft SQL Server 2022 (RTM) - 16.0.1000.6 (X64) Express Edition (64-bit) on Windows 10 Pro 10.0 <X64> (Build 19045: ).
+
 Su tablas principales son:
 
 <img width="308" height="436" alt="image" src="https://github.com/user-attachments/assets/e662e4c7-ff53-4110-a943-9b2774cf3d06" />
