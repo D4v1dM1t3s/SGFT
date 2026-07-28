@@ -1,101 +1,108 @@
-﻿using SGIT.Model.Producto;
+﻿using SGIT.Model.Modelos;
+using SGIT.Model.Producto;
+using SGUS.Data.Data;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SGIT.Business.Producto
 {
-    public class ProductoRepositorio
+    public static class ProductoRepositorio
     {
-        public static List<ProductoModelo> products = new List<ProductoModelo>();
-
-        public static List<ProductoModelo> ObtenerProductos(int idProducto)
+        public static ProductoModelo? ObtenerProducto(int idProducto)
         {
-            var query = from x in poblarProductos()
+            using DataContext ctx = new();
+            var query = from x in ctx.Productos
                         select x;
             if (idProducto > 0)
             {
-                query = from x in query
+                return (from x in query
                         where x.IdProducto == idProducto
-                        select x;
+                        orderby x.Importancia
+                        select new ProductoModelo()
+                        {
+                            IdProducto = x.IdProducto,
+                            Nombre = x.Nombre,
+                            Activo = x.Activo,
+                            FechaVencimiento = x.FechaVencimiento!.Value,
+                            Relevancia = x.Importancia!.Value
+                        }).FirstOrDefault();
             }
-            return query.OrderBy(x => x.IdProducto).ToList();
+            return new ProductoModelo();
         }
 
-        public static ProductoModelo BuscarProductoPorDescripcion(string descripcion)
+        /// <summary>
+        /// Obtiene listado de productos
+        /// </summary>
+        /// <returns>ProductoModelo</returns>
+        public static List<ProductoModelo> ObtenerProductos()
         {
-            ProductoModelo producto = new ProductoModelo();
+            using DataContext ctx = new();
+            var query = from x in ctx.Productos
+                        select x;
+            return [.. (from x in query
+                        orderby x.Importancia
+                        select new ProductoModelo()
+                        {
+                            IdProducto = x.IdProducto,
+                            Nombre = x.Nombre,
+                            Activo = x.Activo,
+                            FechaVencimiento = x.FechaVencimiento!.Value,
+                            Relevancia = x.Importancia!.Value
+                        })];
+        }
+
+        public static ProductoModelo? BuscarProductoPorDescripcion(string descripcion)
+        {
+            using DataContext ctx = new();
+            var query = from x in ctx.Productos
+                        select x;
             if (!string.IsNullOrEmpty(descripcion))
             {
-                producto = (from x in poblarProductos()
-                            where x.Nombre == descripcion
-                            select x).First();
+                return (from x in query
+                        where x.Nombre.ToUpper().Trim().Equals(descripcion.ToUpper().Trim())
+                        orderby x.Importancia
+                        select new ProductoModelo()
+                        {
+                            IdProducto = x.IdProducto,
+                            Nombre = x.Nombre,
+                            Activo = x.Activo,
+                            FechaVencimiento = x.FechaVencimiento!.Value,
+                            Relevancia = x.Importancia!.Value
+                        }).FirstOrDefault();
             }
-            return producto;
+            return new ProductoModelo();
         }
 
-        public static int CrearProducto(ProductoRequest request)
+        public static ProductoModelo? CrearProducto(ProductoRequest request)
         {
-            var response = 0;
-            if (request != null)
-            {
-                var producto = ProductoRepositorio.BuscarProductoPorDescripcion(request.Nombre);
-
-                if (producto == null)
-                {
-                    producto = new ProductoModelo();
-                    producto.IdProducto = 6;//Secuencial;
-                    producto.Importancia = request.Importancia == 1 ? Importancia.Alta : Importancia.Baja;
-                    producto.FechaVencimiento = request.FechaVencimiento;
-                    producto.Activo = true;
-                    producto.Nombre = request.Nombre;
-                    products.Add(producto);
-                }
+            var response = new ProductoModelo();
+            if (request == null)
                 return response;
+
+            if (string.IsNullOrEmpty(request.Nombre))
+                return response;
+
+            using DataContext ctx = new();
+            var producto = (from x in ctx.Productos
+                            where x.Nombre.ToUpper().Trim().Equals(request.Nombre.ToUpper().Trim())
+                            select x).FirstOrDefault();
+
+            if (producto == null)
+            {
+                var prd = new Model.Modelos.Producto()
+                {
+                    Importancia = request.Importancia,
+                    Activo = true,
+                    FechaVencimiento = request.FechaVencimiento,
+                    Nombre = request.Nombre
+                };
+
+                ctx.Productos.Add(prd);
+                ctx.SaveChanges();
+
+                response = ObtenerProducto(prd.IdProducto);
             }
+
             return response;
-        }
-
-        private static List<ProductoModelo> poblarProductos()
-        {
-            var producto = new ProductoModelo();
-            producto.IdProducto = 1;
-            producto.Importancia = Importancia.Alta;
-            producto.FechaVencimiento = new DateTime(2026, 07, 30);
-            producto.Activo = true;
-            producto.Nombre = "Item A";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 2;
-            producto.Importancia = Importancia.Alta;
-            producto.FechaVencimiento = new DateTime(2026, 07, 28);
-            producto.Activo = true;
-            producto.Nombre = "Item B";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 3;
-            producto.Importancia = Importancia.Baja;
-            producto.FechaVencimiento = new DateTime(2026, 07, 27);
-            producto.Activo = true;
-            producto.Nombre = "Item C";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 4;
-            producto.Importancia = Importancia.Alta;
-            producto.FechaVencimiento = new DateTime(2026, 07, 30);
-            producto.Activo = true;
-            producto.Nombre = "Item D";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 5;
-            producto.Importancia = Importancia.Baja;
-            producto.FechaVencimiento = new DateTime(2026, 07, 25);
-            producto.Activo = true;
-            producto.Nombre = "Item E";
-            products.Add(producto);
-
-            return products;
         }
     }
 }

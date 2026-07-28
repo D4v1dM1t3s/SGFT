@@ -27,7 +27,7 @@ namespace SGUS.Model.Producto
         /// <summary>
         /// Relevancia del producto
         /// </summary>
-        private int importancia;
+        public int Relevancia { get; set; }
 
         /// <summary>
         /// Relevancia del producto
@@ -36,17 +36,18 @@ namespace SGUS.Model.Producto
         {
             get
             {
-                TimeSpan diferencia = DateTime.Now - this.FechaVencimiento;
+                var fechaActual = DateTime.Now;
+                TimeSpan diferencia = fechaActual - FechaVencimiento;
 
                 int dias = diferencia.Days;
-                if (importancia == 1)
+                if (Relevancia == 1)
                     return Importancia.Alta;
                 else if (dias < 3)
                     return Importancia.Alta;
                 else
                     return Importancia.Baja;
             }
-            set => importancia = value == Importancia.Alta ?
+            set => Relevancia = value == Importancia.Alta ?
                 1 : 2;
         }
 

@@ -15,7 +15,7 @@
         /// <summary>
         /// Relevancia del producto
         /// </summary>
-        public int Importancia;
+        public int Importancia { get; set; }
 
     }
 }

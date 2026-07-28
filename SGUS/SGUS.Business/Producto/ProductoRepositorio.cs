@@ -1,69 +1,62 @@
-﻿using SGUS.Model.Producto;
+﻿using SGUS.Data.Data;
+using SGUS.Model.Producto;
+using SGUS.Model.Usuario;
 
 namespace SGUS.Business.Producto
 {
-    public class ProductoRepositorio
+    public static class ProductoRepositorio
     {
-        public static List<ProductoModelo> ObtenerProducto(int idProducto)
+        public static ProductoModelo? ObtenerProducto(int idProducto)
         {
-            var query = from x in poblarProductos()
+            using DataContext ctx = new();
+            var query = from x in ctx.Productos
                         select x;
             if (idProducto > 0)
             {
-                query = from x in query
+                return (from x in query
                         where x.IdProducto == idProducto
-                        select x;
-
-                return query.ToList();
+                        orderby x.Importancia
+                        select new ProductoModelo()
+                        {
+                            IdProducto = x.IdProducto,
+                            Nombre = x.Nombre,
+                            Activo = x.Activo,
+                            FechaVencimiento = x.FechaVencimiento!.Value,
+                            Relevancia = x.Importancia!.Value
+                        }).FirstOrDefault();
             }
-            return query.OrderBy(x => x.IdProducto).ToList();
+            return (from x in query
+                    orderby x.Importancia
+                    select new ProductoModelo()
+                    {
+                        IdProducto = x.IdProducto,
+                        Nombre = x.Nombre,
+                        Activo = x.Activo,
+                        FechaVencimiento = x.FechaVencimiento!.Value,
+                        Relevancia = x.Importancia!.Value
+                    }).FirstOrDefault();
+
         }
 
-        private static List<ProductoModelo> poblarProductos()
+        /// <summary>
+        /// Obtiene listado de productos
+        /// </summary>
+        /// <returns>ProductoModelo</returns>
+        public static List<ProductoModelo> ObtenerProductos()
         {
-            List<ProductoModelo> products = new List<ProductoModelo>();
-
-            var producto = new ProductoModelo();
-            producto.IdProducto = 1;
-            producto.Importancia = Importancia.Alta;
-            producto.FechaVencimiento = new DateTime(2026, 07, 30);
-            producto.Activo = true;
-            producto.Nombre = "Item A";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 2;
-            producto.Importancia = Importancia.Alta;
-            producto.FechaVencimiento = new DateTime(2026, 07, 28);
-            producto.Activo = true;
-            producto.Nombre = "Item B";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 3;
-            producto.Importancia = Importancia.Baja;
-            producto.FechaVencimiento = new DateTime(2026, 07, 27);
-            producto.Activo = true;
-            producto.Nombre = "Item C";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 1;
-            producto.Importancia = Importancia.Alta;
-            producto.FechaVencimiento = new DateTime(2026, 07, 30);
-            producto.Activo = true;
-            producto.Nombre = "Item D";
-            products.Add(producto);
-
-            producto = new ProductoModelo();
-            producto.IdProducto = 1;
-            producto.Importancia = Importancia.Baja;
-            producto.FechaVencimiento = new DateTime(2026, 07, 25);
-            producto.Activo = true;
-            producto.Nombre = "Item E";
-            products.Add(producto);
-
-            return products;
+            using DataContext ctx = new();
+            var query = from x in ctx.Productos
+                        select x;
+            return [.. (from x in query
+                    select new ProductoModelo()
+                        {
+                            IdProducto = x.IdProducto,
+                            Nombre = x.Nombre,
+                            Activo = x.Activo,
+                            FechaVencimiento = x.FechaVencimiento!.Value,
+                            Relevancia = x.Importancia!.Value
+                    })];
         }
+
     }
 }

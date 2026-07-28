@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using SGUS.Data.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +10,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Leer cadena de conexión desde appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Registrar DbContext
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(connectionString));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

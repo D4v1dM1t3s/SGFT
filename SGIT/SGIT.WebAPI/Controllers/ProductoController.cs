@@ -14,11 +14,11 @@ namespace SGIT.WebAPI.Controllers
         /// <param name="idProducto"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("/ObtenerProductos")]
+        [Route("ObtenerProductos")]
         public IEnumerable<ProductoModelo> ObtenerProductos()
         {
-            var usuarios = ProductoRepositorio.ObtenerProductos(0);
-            return usuarios.ToArray();
+            var usuarios = ProductoRepositorio.ObtenerProductos();
+            return usuarios;
         }
 
         /// <summary>
@@ -26,12 +26,12 @@ namespace SGIT.WebAPI.Controllers
         /// </summary>
         /// <param name="idProducto"></param>
         /// <returns></returns>
-        [Route("/ObtenerProductosPorID")]
         [HttpGet]
-        public ProductoModelo ObtenerProductosPorID(int idProducto)
+        [Route("ObtenerProductosPorID")]
+        public ProductoModelo? ObtenerProductosPorID(int idProducto)
         {
-            var producto = ProductoRepositorio.ObtenerProductos(idProducto);
-            return producto.First();
+            var producto = ProductoRepositorio.ObtenerProducto(idProducto);
+            return producto;
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace SGIT.WebAPI.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [Route("/CrearProducto")]
         [HttpPost]
-        public int CrearProducto([FromBody] ProductoRequest request)
+        [Route("CrearProducto")]
+        public ProductoModelo? CrearProducto([FromBody] ProductoRequest request)
         {
             var respuesta = ProductoRepositorio.CrearProducto(request);
             return respuesta;

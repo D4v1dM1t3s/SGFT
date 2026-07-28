@@ -8,7 +8,7 @@ namespace SGUS.WebAPI.Controllers
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly ILogger<UsuarioController> _logger;
+        private ILogger<UsuarioController> _logger { get; set; }
 
         public UsuarioController(ILogger<UsuarioController> logger)
         {
@@ -21,11 +21,11 @@ namespace SGUS.WebAPI.Controllers
         /// <param name="estado">1=Saturado; 2=NOSaturado: <> = Todos</param>
         /// <returns>IEnumerable</returns>
         [HttpGet]
-        [Route("/ObtenerUsuariosPorEstadoAsignacion")]
+        [Route("ObtenerUsuariosPorEstado")]
         public IEnumerable<UsuarioModelo> ObtenerUsuariosPorEstado(int estado)
         {
             var usuarios = UsuarioRepositorio.ObtenerUsuariosPorEstado(estado);
-            return usuarios.ToArray();
+            return [.. usuarios];
         }
 
         /// <summary>
@@ -34,11 +34,24 @@ namespace SGUS.WebAPI.Controllers
         /// <param name="request">idCliente</param>
         /// <returns>IEnumerable</returns>
         [HttpGet]
-        [Route("/ObtenerUsuariosPorID")]
-        public IEnumerable<UsuarioModelo> ObtenerUsuariosPorID(int idCliente)
+        [Route("ObtenerUsuarios")]
+        public IEnumerable<UsuarioModelo> ObtenerUsuarios()
+        {
+            var usuarios = UsuarioRepositorio.ObtenerUsuarios();
+            return usuarios;
+        }
+
+        /// <summary>
+        /// Obtener listado de usuarios
+        /// </summary>
+        /// <param name="request">idCliente</param>
+        /// <returns>IEnumerable</returns>
+        [HttpGet]
+        [Route("ObtenerUsuarioPorID")]
+        public UsuarioModelo? ObtenerUsuarioPorID(int idCliente)
         {
             var usuarios = UsuarioRepositorio.ObtenerUsuarioPorID(idCliente);
-            return usuarios.ToArray();
+            return usuarios;
         }
 
         /// <summary>
@@ -46,10 +59,11 @@ namespace SGUS.WebAPI.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns>bool</returns>
-        [HttpPost(Name = "Usuario/AsignarItemUsuario")]
-        public int AsignarItemUsuario([FromBody] AsignarItemRequest request)
+        [HttpPost]
+        [Route("AsignarItemUsuario")]
+        public UsuarioModelo? AsignarItemUsuario([FromBody] AsignarItemRequest request)
         {
-            int resultado = UsuarioRepositorio.AsignarItemAUsuario(request);
+            var resultado = UsuarioRepositorio.AsignarItemAUsuario(request);
 
             return resultado;
         }

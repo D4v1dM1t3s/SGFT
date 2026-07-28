@@ -21,7 +21,7 @@ namespace SGUS.Model.Usuario
         /// <summary>
         /// Estado de usuario
         /// </summary>
-        public int EstadoUsuario;
+        public int EstadoUsuario { get; set; }
 
         /// <summary>
         /// Estado de usuario
@@ -46,6 +46,18 @@ namespace SGUS.Model.Usuario
         /// Listado de productos asignados
         /// </summary>
         public List<ProductoModelo>? ItemsAsignados { get; set; }
+
+        /// <summary>
+        /// numero de productos asignados
+        /// </summary>
+        public int NroItemsAsignados
+        {
+            get
+            {
+                return (from x in ItemsAsignados
+                        select x).Count();
+            }
+        }
 
         public override string ToString()
         {

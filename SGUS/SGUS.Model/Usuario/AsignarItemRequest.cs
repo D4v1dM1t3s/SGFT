@@ -7,5 +7,10 @@
         /// </summary>
         public int IdProducto { get; set; }
 
+        /// <summary>
+        /// Fecha de vencimiento
+        /// </summary>
+        public DateTime FechaVencimiento { get; set; }
+
     }
 }
