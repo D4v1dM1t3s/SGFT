@@ -6,8 +6,8 @@ Permite registrar la cantidad de items de trabajo asignados a un usuario, ademas
 
 
 ## Arquitectura
-- **Backend:** ASP.NET Core Web API .NET 8.0, 
-- **Base de datos:** SQL Server con EF Core
+- **Backend:** ASP.NET Core Web API Rest .NET 8.0, 
+- **Base de datos:** SQL Server con EF Core 8.0.29
 - **Patrones:** Repository + Dependency Injection
 
 
@@ -21,21 +21,33 @@ Endpoint Obtener usuarios con sus Items de trabajo ordenados por fecha de vencim
 Endpoint Obtener usuarios filtrado por id del cliente con sus Items de trabajo ordenados por fecha de vencimiento y relevancia.
 <img width="665" height="681" alt="image" src="https://github.com/user-attachments/assets/42708b0b-a726-431f-a1f9-6dcf5740f33e" />
 
-Endpoint Obtener usuarios filtrado por estado de asignacion del cliente con sus Items de trabajo ordenados por fecha de vencimiento y relevancia.
+Endpoint Obtener usuarios filtrado por estado (1=SATURADOS; 2=NO SATURADOS)de asignacion del cliente con sus Items de trabajo ordenados por fecha de vencimiento y relevancia.
 
 <img width="613" height="594" alt="image" src="https://github.com/user-attachments/assets/5de683c4-1b63-4fbd-aa09-421ca3d6e177" />
  
+Endpoint para asignar items de trabajo usuarios con menor carga y posteior obtener usuarioal cual fue asignado con sus Items de trabajo ordenados por fecha de vencimiento y relevancia.
+<img width="671" height="713" alt="image" src="https://github.com/user-attachments/assets/9024679d-68f3-48c6-a3d8-599c530436a3" />
 
+API Items de Trabajo.
 
+Endpoint Obtener el listado de items con sus Items de trabajo ordenados por relevancia.
+<img width="610" height="732" alt="image" src="https://github.com/user-attachments/assets/df5339b7-e9c0-4c1a-ba8f-17ca3f1b192c" />
 
+<img width="641" height="737" alt="image" src="https://github.com/user-attachments/assets/5a122983-8668-4e03-b0a1-688e0453b488" />
 
+Endpoint Obtener un items filtrado por ID del Item.
+<img width="530" height="483" alt="image" src="https://github.com/user-attachments/assets/786cc38c-8c01-4910-9a8c-7fc22a4423e6" />
 
+Endpoint para crear items de trabajo
+<img width="705" height="722" alt="image" src="https://github.com/user-attachments/assets/6c267190-0b31-4fde-8934-21c65c86d9de" />
 
-
-
-
-
-
+##  Estructura del Código
+| Tu capa | Equivalente en Clean Architecture | Responsabilidad principal |
+| --- | --- | --- |
+| **Capa de Negocio** | **Application + Domain** | Casos de uso, reglas de negocio, validaciones |
+| **Capa de DAO** | **Infrastructure** | Acceso a datos (repositorios, EF Core, SQL) |
+| **Capa de Models** | **Domain** | Entidades y DTOs |
+| **WebAPI** | **Presentation** | Controladores, endpoints, entrada/salida |
 
 
 
