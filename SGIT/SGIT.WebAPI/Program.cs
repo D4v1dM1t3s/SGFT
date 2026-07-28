@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SGUS.Data.Data;
+using SGIT.Data.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

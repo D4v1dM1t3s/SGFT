@@ -20,6 +20,6 @@ namespace SGIT.Model.Modelos
         public int? Importancia { get; set; }
 
         [InverseProperty("IdProductoNavigation")]
-        public virtual ICollection<ProductoUsuario> ProductoUsuarios { get; set; } = new List<ProductoUsuario>();
+        public virtual ICollection<ProductoUsuario> ProductoUsuarios { get; set; } = [];
     }
 }

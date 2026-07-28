@@ -35,7 +35,7 @@ namespace SGUS.Business.Usuario
             var query = (from x in ObtenerUsuarios()
                          orderby x.NroItemsAsignados
                          select x);
-            return query.ToList();
+            return [.. query];
         }
 
         public static UsuarioModelo? ObtenerUsuarioPorID(int idUsuario)

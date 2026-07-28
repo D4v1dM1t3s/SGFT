@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using SGUS.Model.Modelos;
-using System;
-using System.Configuration;
 
 namespace SGUS.Data.Data;
 
@@ -40,13 +37,11 @@ public partial class DataContext : DbContext
         if (!optionsBuilder.IsConfigured)
         {
             var conn = _configuration.GetConnectionString("DefaultConnection");
-            if (conn == null)
-            {
-                conn = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\repos\\davidalexandermites\\SGFT\\BDD\\SGIT.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True;";
-            }
+            conn ??= "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\repos\\davidalexandermites\\SGFT\\BDD\\SGIT.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True;";
             optionsBuilder.UseSqlServer(conn);
         }
     }
+  
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Producto>(entity =>
@@ -68,8 +63,8 @@ public partial class DataContext : DbContext
             entity.HasKey(e => e.IdUsuario).HasName("PK_dbo.Usuario");
         });
 
-        OnModelCreatingPartial(modelBuilder);
+        ////OnModelCreatingPartial(modelBuilder);
     }
 
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    ////partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

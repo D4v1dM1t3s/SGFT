@@ -1,7 +1,5 @@
-﻿using SGIT.Model.Modelos;
-using SGIT.Model.Producto;
-using SGUS.Data.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+﻿using SGIT.Model.Producto;
+using SGIT.Data.Data;
 
 namespace SGIT.Business.Producto
 {

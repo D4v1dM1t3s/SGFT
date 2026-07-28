@@ -8,6 +8,13 @@ namespace SGIT.WebAPI.Controllers
     [Route("[controller]")]
     public class ProductoController : ControllerBase
     {
+        private ILogger<ProductoController> Logger { get; set; }
+
+        public ProductoController(ILogger<ProductoController> logger)
+        {
+            Logger = logger;
+        }
+
         /// <summary>
         /// Obtiene el listado de productos
         /// </summary>
@@ -17,6 +24,7 @@ namespace SGIT.WebAPI.Controllers
         [Route("ObtenerProductos")]
         public IEnumerable<ProductoModelo> ObtenerProductos()
         {
+            Logger.LogInformation("Obtener listado de productos");
             var usuarios = ProductoRepositorio.ObtenerProductos();
             return usuarios;
         }
@@ -30,6 +38,7 @@ namespace SGIT.WebAPI.Controllers
         [Route("ObtenerProductosPorID")]
         public ProductoModelo? ObtenerProductosPorID(int idProducto)
         {
+            Logger.LogInformation("Obtener producto por ID");
             var producto = ProductoRepositorio.ObtenerProducto(idProducto);
             return producto;
         }
@@ -43,6 +52,7 @@ namespace SGIT.WebAPI.Controllers
         [Route("CrearProducto")]
         public ProductoModelo? CrearProducto([FromBody] ProductoRequest request)
         {
+            Logger.LogInformation("Crear producto nuevo");
             var respuesta = ProductoRepositorio.CrearProducto(request);
             return respuesta;
         }

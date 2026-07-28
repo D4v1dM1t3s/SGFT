@@ -8,11 +8,11 @@ namespace SGUS.WebAPI.Controllers
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private ILogger<UsuarioController> _logger { get; set; }
+        private ILogger<UsuarioController> Logger { get; set; }
 
         public UsuarioController(ILogger<UsuarioController> logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
 
         /// <summary>
@@ -24,6 +24,7 @@ namespace SGUS.WebAPI.Controllers
         [Route("ObtenerUsuariosPorEstado")]
         public IEnumerable<UsuarioModelo> ObtenerUsuariosPorEstado(int estado)
         {
+            Logger.LogInformation("Obtener Usuarios por estado");
             var usuarios = UsuarioRepositorio.ObtenerUsuariosPorEstado(estado);
             return [.. usuarios];
         }
@@ -37,6 +38,7 @@ namespace SGUS.WebAPI.Controllers
         [Route("ObtenerUsuarios")]
         public IEnumerable<UsuarioModelo> ObtenerUsuarios()
         {
+            Logger.LogInformation("Obtener listado de Usuarios");
             var usuarios = UsuarioRepositorio.ObtenerUsuarios();
             return usuarios;
         }
@@ -50,6 +52,7 @@ namespace SGUS.WebAPI.Controllers
         [Route("ObtenerUsuarioPorID")]
         public UsuarioModelo? ObtenerUsuarioPorID(int idCliente)
         {
+            Logger.LogInformation("Obtener Usuarios por ID");
             var usuarios = UsuarioRepositorio.ObtenerUsuarioPorID(idCliente);
             return usuarios;
         }
@@ -63,6 +66,7 @@ namespace SGUS.WebAPI.Controllers
         [Route("AsignarItemUsuario")]
         public UsuarioModelo? AsignarItemUsuario([FromBody] AsignarItemRequest request)
         {
+            Logger.LogInformation("Asignar Item de trabajo a usuario");
             var resultado = UsuarioRepositorio.AsignarItemAUsuario(request);
 
             return resultado;
