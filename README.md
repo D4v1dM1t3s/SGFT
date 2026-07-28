@@ -10,6 +10,28 @@ Permite registrar la cantidad de items de trabajo asignados a un usuario, ademas
 - **Base de datos:** SQL Server con EF Core 8.0.29
 - **Patrones:** Repository + Dependency Injection
 
+## Endpoints
+Microservicio SGUT
+| Método | Ruta | Descripción | Request Body | Response |
+| --- | --- | --- | --- | --- |
+| GET | ``/Usuario/ObtenerUsuarios`` | Lista todos los usuarios con sus items de trabajo ordenados por fecha proxima y relevancia | N/A | JSON |
+| GET | ``/Usuario/ObtenerUsuariosPorEstado?estado={idEstado}`` | Obtiene usuarios por Estado con sus items de trabajo | N/A | JSON |
+| GET | ``/Usuario/ObtenerUsuarioPorID?idCliente={idUsuario}`` | Obtiene usuarios por ID con sus items de trabajo  | N/A | JSON  |
+| POST | ``/Usuario/AsignarItemUsuario`` | Asignar Item a Usuario | JSON ``{
+  "idProducto": 5,
+  "fechaVencimiento": "2026-07-31T19:13:34.335Z"
+}`` | JSON actualizado |
+
+Microservicio SGIT
+| Método | Ruta | Descripción | Request Body | Response |
+| --- | --- | --- | --- | --- |
+| GET | ``/api/tareas`` | Lista todas las tareas | N/A | JSON |
+| GET | ``/Producto/ObtenerProductosPorID?{idProducto}`` | Obtiene lo item por ID | N/A | JSON |
+| POST | ``/Producto/CrearProducto`` | Crea nueva item de trabajo | JSON ``{
+  "nombre": "PRODUCTO G",
+  "fechaVencimiento": "2026-08-28T18:56:41.333Z",
+  "importancia": 0
+}`` | JSON con Item creado |
 
 ## Screemshots
 
@@ -42,13 +64,38 @@ Endpoint para crear items de trabajo
 <img width="705" height="722" alt="image" src="https://github.com/user-attachments/assets/6c267190-0b31-4fde-8934-21c65c86d9de" />
 
 ##  Estructura del Código
-| Tu capa | Equivalente en Clean Architecture | Responsabilidad principal |
+| Capa | Aplicacion | Responsabilidad principal |
 | --- | --- | --- |
 | **Capa de Negocio** | **Application + Domain** | Casos de uso, reglas de negocio, validaciones |
 | **Capa de DAO** | **Infrastructure** | Acceso a datos (repositorios, EF Core, SQL) |
 | **Capa de Models** | **Domain** | Entidades y DTOs |
 | **WebAPI** | **Presentation** | Controladores, endpoints, entrada/salida |
 
+                 +-------------------+
+                 |      WebAPI       |
+                 | (Controllers,     |
+                 | Endpoints REST)   |
+                 +-------------------+
+                          |
+                          v
+                 +-------------------+
+                 | Capa de Negocio   |
+                 | Casos de uso,     |
+                 | lógica de negocio |
+                 +-------------------+
+                          |
+                          v
+                 +-------------------+
+                 |     Models        |
+                 | Entidades, DTOs   |
+                 +-------------------+
+                          ^
+                          |
+                 +-------------------+
+                 |      DAO          |
+                 | Repositorios,     |
+                 | EF Core, SQL      |
+                 +-------------------+
 
 
 
