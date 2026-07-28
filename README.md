@@ -11,27 +11,20 @@ Permite registrar la cantidad de items de trabajo asignados a un usuario, ademas
 - **Patrones:** Repository + Dependency Injection
 
 ## Endpoints
-Microservicio SGUT
+Microservicio SGUS
 | Método | Ruta | Descripción | Request Body | Response |
 | --- | --- | --- | --- | --- |
 | GET | ``/Usuario/ObtenerUsuarios`` | Lista todos los usuarios con sus items de trabajo ordenados por fecha proxima y relevancia | N/A | JSON |
 | GET | ``/Usuario/ObtenerUsuariosPorEstado?estado={idEstado}`` | Obtiene usuarios por Estado con sus items de trabajo | N/A | JSON |
 | GET | ``/Usuario/ObtenerUsuarioPorID?idCliente={idUsuario}`` | Obtiene usuarios por ID con sus items de trabajo  | N/A | JSON  |
-| POST | ``/Usuario/AsignarItemUsuario`` | Asignar Item a Usuario | JSON ``{
-  "idProducto": 5,
-  "fechaVencimiento": "2026-07-31T19:13:34.335Z"
-}`` | JSON actualizado |
+| POST | ``/Usuario/AsignarItemUsuario`` | Asignar Item a Usuario | JSON ``{"idProducto": 5,"fechaVencimiento": "2026-07-31T19:13:34.335Z"}`` | JSON actualizado |
 
 Microservicio SGIT
 | Método | Ruta | Descripción | Request Body | Response |
 | --- | --- | --- | --- | --- |
 | GET | ``/api/tareas`` | Lista todas las tareas | N/A | JSON |
 | GET | ``/Producto/ObtenerProductosPorID?{idProducto}`` | Obtiene lo item por ID | N/A | JSON |
-| POST | ``/Producto/CrearProducto`` | Crea nueva item de trabajo | JSON ``{
-  "nombre": "PRODUCTO G",
-  "fechaVencimiento": "2026-08-28T18:56:41.333Z",
-  "importancia": 0
-}`` | JSON con Item creado |
+| POST | ``/Producto/CrearProducto`` | Crea nueva item de trabajo | JSON ``{"nombre": "PRODUCTO G","fechaVencimiento": "2026-08-28T18:56:41.333Z","importancia": 0}`` | JSON con Item creado |
 
 ## Screemshots
 
@@ -97,7 +90,12 @@ Endpoint para crear items de trabajo
                  | EF Core, SQL      |
                  +-------------------+
 
+## Base de Datos
+Diagrama entidad-relación
+Se utilizo Microsoft SQL Server 2022 (RTM) - 16.0.1000.6 (X64) Express Edition (64-bit) on Windows 10 Pro 10.0 <X64> (Build 19045: ) 
+Su tablas principales son:
 
+<img width="308" height="436" alt="image" src="https://github.com/user-attachments/assets/e662e4c7-ff53-4110-a943-9b2774cf3d06" />
 
 
 
